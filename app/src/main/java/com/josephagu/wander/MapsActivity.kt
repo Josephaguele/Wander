@@ -12,6 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.josephagu.wander.databinding.ActivityMapsBinding
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -89,7 +90,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     InfoWindow that displays the coordinates of the marker when the marker is tapped.*/
     private fun setMapLongClick(map:GoogleMap){
         map.setOnMapClickListener {latLng->
-            map.addMarker(MarkerOptions().position(latLng))
+            // A Snippet is Additional text that's displayed below the title.
+            val snippet = String.format(Locale.getDefault(),
+                "Lat: %1$.5f, Long: %2$.5f",
+                latLng.latitude,
+                latLng.longitude
+            )
+
+            //Set the title of the marker to “Dropped Pin” and set the marker’s snippet to the snippet  just created.
+            map.addMarker(MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.dropped_pin))
+                .snippet(snippet)
+            )
+
+
         }
     }
 
