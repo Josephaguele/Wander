@@ -30,6 +30,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -51,6 +52,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng,zoomLevel))
         // this adds a marker to my home's exact location.
         map.addMarker(MarkerOptions().position(homeLatLng))
+
+        // calling setMapLongClick method
+        setMapLongClick(map)
         
     }
 
@@ -79,6 +83,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    /* add a marker when the user touches and holds a location on the map. You will then add an
+    InfoWindow that displays the coordinates of the marker when the marker is tapped.*/
+    private fun setMapLongClick(map:GoogleMap){
+        map.setOnMapClickListener {latLng->
+            map.addMarker(MarkerOptions().position(latLng))
+        }
     }
 
 }
