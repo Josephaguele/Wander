@@ -56,6 +56,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         // calling setMapLongClick method
         setMapLongClick(map)
+        // calling setPOIclick
+        setPoiClick(map)
+
         
     }
 
@@ -103,8 +106,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .title(getString(R.string.dropped_pin))
                 .snippet(snippet)
             )
+        }
+    }
 
-
+/* POI - Points of Interest
+This click-listener places a marker on the map immediately when the user clicks on a POI.
+The click-listener also displays the info window that contains the POI name.*/
+    private fun setPoiClick(map: GoogleMap) {
+        map.setOnPoiClickListener { poi ->
+            //In the onPoiClick() method, place a marker at the POI location.
+            // Set the title to the name of the POI. Save the result to a variable called poiMarker.
+            val poiMarker = map.addMarker(
+                MarkerOptions()
+                    .position(poi.latLng)
+                    .title(poi.name)
+            )
+            poiMarker.showInfoWindow()
         }
     }
 
